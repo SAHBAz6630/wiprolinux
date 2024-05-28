@@ -1,0 +1,119 @@
+;lafkgakjdslkfjkladsmngfasrdmnklng
+dfdsf
+d
+dfdf
+fddfsfd
+fdsf
+fsdf
+
+dsfsdf
+sdf
+
+sdf
+ds
+f
+sdf
+
+dsfds
+f
+
+
+
+
+create table employee 
+(
+id number(10),
+name varchar2(20),
+salary number(10,2),
+age number(10)
+);
+desc employee;
+
+insert into employee values(2,'sahbaz',70000.45,25);
+
+select id from employee;
+select id,age,name,salary from employee;
+select * from employee;
+
+insert into employee(id,name) values(3,'saicharan');
+
+insert into employee(id,name) values(4,'WIPRO');
+
+update employee set salary = 30000 where id = 3;
+update employee set salary = 30000 where id = 4;
+
+delete from employee where id = 2;
+
+rename employee to emp3;
+
+select * from emp3;
+
+rename emp3 to employee;
+
+select * from employee;
+
+alter table employee add (dept varchar2(50));
+
+alter table employee drop column dept;
+
+alter table employee rename column salary to sal;
+
+alter table employee modify name varchar2(50);
+
+describe employee;
+select * from employee;
+
+select id, name as empname, sal, sal+1000 as bonus, sal/30 as perdaysalary from employee;
+
+alter table employee add (dept varchar2(30));
+
+insert into employee values(4,'ramu',9000,34,'hr');
+insert into employee values(5,'samu',9000,34,'hr');
+
+update employee set dept ='software' where id =2;
+update employee set dept ='software' where id =3;
+
+select * from employee where dept='hr' and age > 30;
+
+select * from employee order by age;
+
+select sum(sal) from employee;
+select min(sal) from employee;
+select max(sal) from employee;
+select avg(sal) from employee;
+select count(sal) from employee;
+
+select dept,count(id) from employee group by dept;
+
+select dept,count(id), sum(sal), min(sal), max(sal)
+from employee
+group by dept
+having min(sal) > 9000
+order by min(sal) desc;
+
+select dept,count(id), sum(sal), min(sal), max(sal)
+from employee
+group by dept
+having count(id) > 1
+order by sum(sal) desc;
+
+insert into employee values(1,'zohan',10000,20,'cse');
+insert into employee values(10,'chain smoker',60000,27,'ai');
+
+select * from employee;
+
+select dept,sum(sal)
+from employee
+group by dept;
+
+select dept,sum(sal)
+from employee
+group by dept
+having sum(sal) > 100000;
+
+select dept,sum(sal)
+from employee
+where dept <> 'hr'
+group by dept
+having sum(sal) > 100000
+order by sum(sal);

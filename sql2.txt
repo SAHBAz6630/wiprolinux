@@ -1,0 +1,290 @@
+select * from employee where name like 'j%';
+
+select * from employee where name like '_a%';
+
+select * from employee where name like '%i';
+
+select * from employee where name like '%a%';
+
+select round(100.3456,2) from dual;
+
+select round(100.3456,3) from dual;
+
+select round(100.3456) from dual;
+
+select trunc(100.3456) from dual;
+
+select trunc(100.56) from dual;
+
+
+select mod(15,5) from dual;
+
+select id,name,upper(name),lower(name),initcap(name),length(name) from employee;
+
+select mod(15,6) from dual;
+
+select * from employee where length(name) > 5;
+
+select * from employee where length(name) = 5;
+
+select id,name, concat('welcome ',name) from employee;
+
+select id,name, concat('welcome ',name), instr(name,'a') from employee;
+
+select id,name,dept, lpad(dept,8,'*') from employee;
+
+select id,name,dept, rpad(dept,8,'*') from employee;
+
+select id,name, replace(name,'a','*') from employee;
+
+select sysdate from dual;
+
+alter table employee add dob date;
+
+alter table employee add doj date;
+
+update employee set dob='10-jan-1990', doj='09-feb-2024' where id =1;
+update employee set dob='11-jan-1990', doj='10-feb-2024' where id =2;
+update employee set dob='12-jan-1990', doj='11-feb-2024' where id =3;
+update employee set dob='10-feb-1990', doj='12-mar-2024' where id =4;
+update employee set dob='10-feb-1990', doj='09-apr-2024' where id =5;
+update employee set dob='10-feb-1991', doj='09-apr-2024' where id =6;
+update employee set dob='10-feb-1992', doj='09-apr-2024' where id =7;
+update employee set dob='10-feb-1993', doj='09-apr-2024' where id =8;
+update employee set dob='10-feb-1994', doj='09-apr-2024' where id =9;
+update employee set dob='10-feb-1993', doj='09-apr-2024' where id =10;
+
+
+select id,name,dob,doj+2 from employee;
+
+select id,name,dob,doj-2 from employee;
+
+select id,name,dob, round((sysdate-dob)/365) as age from employee;
+
+select id,name,dob, round(months_between(sysdate,dob)) from employee;
+
+select id,name,dob, round((sysdate-dob)/365) as age from employee where round((sysdate-doj)/365) < 30;
+
+select id,name,doj, round((sysdate-doj)/30) as months from employee;
+
+
+select id,name,doj, round(months_between(sysdate,doj)) from employee;
+
+select next_day(sysdate,'saturday') from dual;
+
+select last_day(sysdate) from dual;
+
+select id,name,doj, to_char(doj,'mm/yy') from employee;
+
+select id,name,doj, to_char(doj,'month/yyyy') from employee;
+
+select * from employee;
+
+insert into employee values(11,'soka',89000,39,'BI','11-feb-85','12-mar-2024');
+
+commit;
+
+rollback;
+
+insert into employee values(11,'moka',89000,39,'BI','11-feb-85','12-mar-2024');
+
+create table bangloreoffice(
+id number(10);
+name varchar2(30);
+age number(10);
+);
+
+create table chennaioffice(
+id number(10);
+name varchar2(30);
+age number(10);
+);
+------------------------------------------------------------------------
+
+
+
+
+
+
+create table bangloreoffice(
+id number(10),
+name varchar(30),
+age number(10)
+);
+
+insert into bangloreoffice values(1,'sahbaz',25);
+
+insert into bangloreoffice values(2,'arbaz',24);
+
+insert into bangloreoffice values(3,'gurbaz',23);
+
+insert into bangloreoffice values(4,'rehman',26);
+
+create table chennaioffice(
+id number(10),
+name varchar(30),
+age number(10)
+);
+
+insert into chennaioffice values(1,'a',25);
+insert into chennaioffice values(2,'b',25);
+insert into chennaioffice values(3,'gurbaz',23);
+
+insert into chennaioffice values(4,'rehman',26);
+
+
+select * from bangloreoffice
+union
+select * from chennaioffice;
+
+select * from bangloreoffice
+union all
+select * from chennaioffice;
+
+
+select * from bangloreoffice
+intersect
+select * from chennaioffice;
+
+select * from bangloreoffice
+
+select * from chennaioffice;
+
+
+create sequence empid_sequence
+minvalue 1
+start with 1
+increment by 1;
+
+create table employee11(
+id number(10) primary key,
+name varchar2(30),
+age number(10),
+dept varchar2(30)
+);
+
+insert into employee11 values(empid_sequence.nextval,'sachin',33,'hr');
+insert into employee11 values(empid_sequence.nextval,'rachin',23,'hr');
+
+select * from employee11;
+
+create view hrlistview as
+select * from employee where dept = 'hr';
+
+select * from hrlistview;
+
+select id,name,age from hrlistview;
+
+
+select id,name,dept,sal, rank() over(order by sal) as giving_rank_based_on_salary
+from employee;
+
+select id,name,dept,sal, rank() over(order by sal desc) as giving_rank_based_on_salary
+from employee;
+
+select * from
+(
+select id,name,dept,sal, rank() over(order by sal desc) as giving_rank_based_on_salary
+from employee
+)emp
+where giving_rank_based_on_salary=5;
+
+
+--------------------------------
+create table bangloreoffice(
+id number(10),
+name varchar(30),
+age number(10)
+);
+
+insert into bangloreoffice values(1,'sahbaz',25);
+
+insert into bangloreoffice values(2,'arbaz',24);
+
+insert into bangloreoffice values(3,'gurbaz',23);
+
+insert into bangloreoffice values(4,'rehman',26);
+
+create table chennaioffice(
+id number(10),
+name varchar(30),
+age number(10)
+);
+
+insert into chennaioffice values(1,'a',25);
+insert into chennaioffice values(2,'b',25);
+insert into chennaioffice values(3,'gurbaz',23);
+
+insert into chennaioffice values(4,'rehman',26);
+
+
+select * from bangloreoffice
+union
+select * from chennaioffice;
+
+select * from bangloreoffice
+union all
+select * from chennaioffice;
+
+
+select * from bangloreoffice
+intersect
+select * from chennaioffice;
+
+select * from bangloreoffice
+
+select * from chennaioffice;
+
+
+create sequence empid_sequence
+minvalue 1
+start with 1
+increment by 1;
+
+create table employee11(
+id number(10) primary key,
+name varchar2(30),
+age number(10),
+dept varchar2(30)
+);
+
+insert into employee11 values(empid_sequence.nextval,'sachin',33,'hr');
+insert into employee11 values(empid_sequence.nextval,'rachin',23,'hr');
+
+select * from employee11;
+
+create view hrlistview as
+select * from employee where dept = 'hr';
+
+select * from hrlistview;
+
+select id,name,age from hrlistview;
+
+
+select id,name,dept,sal, rank() over(order by sal) as giving_rank_based_on_salary
+from employee;
+
+select id,name,dept,sal, rank() over(order by sal desc) as giving_rank_based_on_salary
+from employee;
+
+select * from
+(
+select id,name,dept,sal, rank() over(order by sal desc) as giving_rank_based_on_salary
+from employee
+)emp
+where giving_rank_based_on_salary=5;
+
+update employee set sal=60000 where id = 7;
+
+select id,name,dept,sal,
+rank() over(order by sal desc) as emprank
+from employee;
+
+select id,name,dept,sal,
+dense_rank() over(order by sal desc) as emprank
+from employee;
+
+select id,name,dept,sal,
+row_number() over(order by id ) as rowid
+from employee;
+
